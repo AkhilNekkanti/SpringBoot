@@ -7,7 +7,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.io.Serializable;
-import java.util.Objects;
 import java.util.UUID;
 
 @Data
@@ -15,21 +14,20 @@ import java.util.UUID;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class Item implements Serializable {
+public class Money implements Serializable {
     private static final long serialVersionUID = 1L;
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
-    private String name;
-    private String category;
+    private String currency_Type;
+    private String currency_Value;
 
-    @OneToOne(fetch = FetchType.LAZY,
-            cascade =  CascadeType.ALL,
-            mappedBy = "item")
-    private Money money;
+    @OneToOne(fetch = FetchType.LAZY, optional = false)
+    @JoinColumn(name = "item_id", nullable = false)
+    private Item item;
 
-//    @OneToOne(mappedBy = "item", fetch = FetchType.LAZY,
-//            cascade = CascadeType.ALL)
-//    private Money cost;
-
+//    @OneToOne(fetch = FetchType.LAZY, optional = false)
+//    @JoinColumn(name = "item_id", nullable = false)
+//    private Item item;
 }
